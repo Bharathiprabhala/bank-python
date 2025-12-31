@@ -26,6 +26,10 @@ class BankAccount:
     def withdraw(self, amount):
         if amount <= 0:
             print("Withdrawal amount must be positive.")
+
+        if self.balance - amount < BankAccount.MIN_BALANCE:
+            return f"Minimum balance of ₹{BankAccount.MIN_BALANCE:.2f} must be maintained."
+        
         elif amount <= self.balance:
             self.balance -= amount
             print(f"₹{amount:.2f} withdrawn. New balance: ₹{self.balance:.2f}")
@@ -122,3 +126,141 @@ def main():
 # Run the program
 if __name__ == "__main__":
     main()
+    '''
+import random
+
+class BankAccount:
+    accounts = {}          # Store all accounts
+    MIN_BALANCE = 500.0    # Minimum balance rule
+
+    def __init__(self, name, balance):
+        self.name = name
+        self.balance = balance
+        self.account_number = random.randint(10000, 99999)
+        self.transactions = []   # NEW: transaction history
+
+        while self.account_number in BankAccount.accounts:
+            self.account_number = random.randint(10000, 99999)
+
+        BankAccount.accounts[self.account_number] = self
+        self.transactions.append(f"Account opened with ₹{balance:.2f}")
+
+    def deposit(self, amount):
+        if amount <= 0:
+            return "Deposit amount must be positive."
+
+        self.balance += amount
+        self.transactions.append(f"Deposited ₹{amount:.2f}")
+        return f"₹{amount:.2f} deposited. New balance: ₹{self.balance:.2f}"
+
+    def withdraw(self, amount):
+        if amount <= 0:
+            return "Withdrawal amount must be positive."
+
+        if self.balance - amount < BankAccount.MIN_BALANCE:
+            return f"Minimum balance of ₹{BankAccount.MIN_BALANCE:.2f} must be maintained."
+
+        self.balance -= amount
+        self.transactions.append(f"Withdrew ₹{amount:.2f}")
+        return f"₹{amount:.2f} withdrawn. New balance: ₹{self.balance:.2f}"
+
+    def display_balance(self):
+        print("\n--- Account Details ---")
+        print(f"Account Holder   : {self.name}")
+        print(f"Account Number   : {self.account_number}")
+        print(f"Available Balance: ₹{self.balance:.2f}")
+
+    def show_transactions(self):
+        print("\n--- Transaction History ---")
+        for t in self.transactions:
+            print("-", t)
+
+    @classmethod
+    def find_account(cls, account_number, name):
+        account = cls.accounts.get(account_number)
+        if account and account.name.lower() == name.lower():
+            return account
+        return None
+
+
+# --- Main logic ---
+def main():
+    while True:
+        print("\n======= Welcome to the Banking System =======")
+        print("1. Create New Savings Account")
+        print("2. Access Existing Account")
+        print("3. Exit")
+
+        choice = input("Enter choice (1, 2, or 3): ")
+
+        if choice == '1':
+            name = input("Enter your name: ").strip()
+            try:
+                deposit = float(input("Enter initial deposit amount (₹): "))
+                if deposit < BankAccount.MIN_BALANCE:
+                    print(f"Initial deposit must be at least ₹{BankAccount.MIN_BALANCE:.2f}")
+                    continue
+
+                account = BankAccount(name, deposit)
+                print("\n✅ Account created successfully!")
+                print(f"Your account number is: {account.account_number}")
+
+            except ValueError:
+                print("Invalid amount.")
+
+        elif choice == '2':
+            name = input("Enter your name: ").strip()
+            try:
+                acc_no = int(input("Enter your account number: "))
+                account = BankAccount.find_account(acc_no, name)
+
+                if not account:
+                    print("❌ Account not found.")
+                    continue
+
+                print("\n🔓 Access granted.")
+                while True:
+                    print("\n--- Account Menu ---")
+                    print("1. Deposit")
+                    print("2. Withdraw")
+                    print("3. Display Balance")
+                    print("4. Transaction History")
+                    print("5. Logout")
+
+                    option = input("Choose an option: ")
+
+                    if option == '1':
+                        amt = float(input("Enter amount: ₹"))
+                        print(account.deposit(amt))
+
+                    elif option == '2':
+                        amt = float(input("Enter amount: ₹"))
+                        print(account.withdraw(amt))
+
+                    elif option == '3':
+                        account.display_balance()
+
+                    elif option == '4':
+                        account.show_transactions()
+
+                    elif option == '5':
+                        print("Logged out successfully.")
+                        break
+
+                    else:
+                        print("Invalid option.")
+
+            except ValueError:
+                print("Invalid input.")
+
+        elif choice == '3':
+            print("👋 Thank you for using the Banking System!")
+            break
+
+        else:
+            print("Invalid choice.")
+
+
+if __name__ == "__main__":
+    main()
+'''
