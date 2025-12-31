@@ -1,7 +1,9 @@
+
 import random
 
 class BankAccount:
     accounts = {}  # Class-level dictionary to store all accounts
+    MIN_BALANCE = 500
 
     def __init__(self, name, balance):
         self.name = name
@@ -35,6 +37,7 @@ class BankAccount:
         print(f"Account Holder : {self.name}")
         print(f"Account Number : {self.account_number}")
         print(f"Available Balance: ₹{self.balance:.2f}")
+        
 
     @staticmethod
     def find_account(account_number, name):
