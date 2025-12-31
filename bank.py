@@ -30,9 +30,8 @@ class BankAccount:
         if self.balance - amount < BankAccount.MIN_BALANCE:
             return f"Minimum balance of ₹{BankAccount.MIN_BALANCE:.2f} must be maintained."
         
-        elif amount <= self.balance:
-            self.balance -= amount
-            print(f"₹{amount:.2f} withdrawn. New balance: ₹{self.balance:.2f}")
+        
+
         else:
             print("Insufficient balance.")
 
