@@ -29,11 +29,13 @@ class BankAccount:
 
         if self.balance - amount < BankAccount.MIN_BALANCE:
             return f"Minimum balance of ₹{BankAccount.MIN_BALANCE:.2f} must be maintained."
-        
-        
 
         else:
             print("Insufficient balance.")
+
+        self.balance -= amount
+        self.transactions.append(f"Withdrew ₹{amount:.2f}")
+        return f"₹{amount:.2f} withdrawn. New balance: ₹{self.balance:.2f}"
 
     def display_balance(self):
         print("\n--- Account Details ---")
