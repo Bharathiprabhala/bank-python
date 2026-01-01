@@ -91,11 +91,19 @@ def main():
                         option = input("Choose an option: ")
 
                         if option == '1':
+                            name = input("Enter your name: ").strip()
                             try:
-                                amt = float(input("Enter amount to deposit: ₹"))
-                                account.deposit(amt)
+                                deposit = float(input("Enter initial deposit amount (₹): "))
+                                if deposit < BankAccount.MIN_BALANCE:
+                                    print(f"Initial deposit must be at least ₹{BankAccount.MIN_BALANCE:.2f}")
+                                    continue
+
+                                account = BankAccount(name, deposit)
+                                print("\n✅ Account created successfully!")
+                                print(f"Your account number is: {account.account_number}")
+
                             except ValueError:
-                                print("Invalid input. Please enter a number.")
+                                print("Invalid amount.")
 
                         elif option == '2':
                             try:
