@@ -94,23 +94,17 @@ def main():
                         print("1. Deposit")
                         print("2. Withdraw")
                         print("3. Display Balance")
-                        print("4. Logout")
+                        print("4. Transaction History")
+                        print("5. Logout")
                         option = input("Choose an option: ")
 
-                        if option == '1':
-                            name = input("Enter your name: ").strip()
-                            try:
-                                deposit = float(input("Enter initial deposit amount (₹): "))
-                                if deposit < BankAccount.MIN_BALANCE:
-                                    print(f"Initial deposit must be at least ₹{BankAccount.MIN_BALANCE:.2f}")
-                                    continue
-
-                                account = BankAccount(name, deposit)
-                                print("\n✅ Account created successfully!")
-                                print(f"Your account number is: {account.account_number}")
-
-                            except ValueError:
-                                print("Invalid amount.")
+                        if option == '1': 
+                            try: 
+                                amt = float(input("Enter amount to deposit: ₹")) 
+                                account.deposit(amt) 
+                                
+                            except ValueError: 
+                                print("Invalid input. Please enter a number.")
 
                         elif option == '2':
                             try:
@@ -123,6 +117,9 @@ def main():
                             account.display_balance()
 
                         elif option == '4':
+                            account.show_transactions()
+
+                        elif option == '5':
                             print("Logging out. Returning to main menu...")
                             break
                         else:
