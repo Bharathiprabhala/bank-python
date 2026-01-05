@@ -15,6 +15,7 @@ class BankAccount:
             self.account_number = random.randint(10000, 99999)
 
         BankAccount.accounts[self.account_number] = self
+        self.transactions.append(f"Account opened with ₹{balance:.2f}")
 
     def deposit(self, amount):
         if amount <= 0:
