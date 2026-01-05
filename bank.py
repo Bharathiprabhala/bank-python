@@ -22,6 +22,7 @@ class BankAccount:
             print("Deposit amount must be positive.")
             return
         self.balance += amount
+        self.transactions.append(f"Deposited ₹{amount:.2f}")
         print(f"₹{amount:.2f} deposited. New balance: ₹{self.balance:.2f}")
 
     def withdraw(self, amount):
