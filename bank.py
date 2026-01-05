@@ -8,6 +8,7 @@ class BankAccount:
         self.name = name
         self.balance = balance
         self.account_number = random.randint(10000, 99999)
+        self.transactions = []
 
         # Ensure unique account number
         while self.account_number in BankAccount.accounts:
