@@ -30,10 +30,7 @@ class BankAccount:
             print("Withdrawal amount must be positive.")
 
         if self.balance - amount < BankAccount.MIN_BALANCE:
-            return f"Minimum balance of ₹{BankAccount.MIN_BALANCE:.2f} must be maintained."
-
-        else:
-            print("Insufficient balance.")
+            print(f"Minimum balance of ₹{BankAccount.MIN_BALANCE:.2f} must be maintained.")
 
         self.balance -= amount
         self.transactions.append(f"Withdrew ₹{amount:.2f}")
@@ -72,8 +69,8 @@ def main():
             name = input("Enter your name: ").strip()
             try:
                 deposit = float(input("Enter initial deposit amount (₹): "))
-                if deposit < 0:
-                    print("Deposit must be a non-negative amount.")
+                if deposit < BankAccount.MIN_BALANCE:
+                    print(f"Initial deposit must be at least ₹{BankAccount.MIN_BALANCE:.2f}")
                     continue
                 account = BankAccount(name, deposit)
                 print(f"\n✅ Account created successfully!")
